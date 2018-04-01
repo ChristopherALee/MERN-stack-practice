@@ -33,6 +33,18 @@ app.get("/expressions/:id", (req, res, next) => {
   }
 });
 
+// PUT request
+app.put("/expressions/:id", (req, res, next) => {
+  const expressionIndex = getIndexById(req.params.id, expressions);
+
+  if (expressionIndex !== -1) {
+    updateElement(req.params.id, req.query, expressions);
+    res.send(expressions[expressionIndex]);
+  } else {
+    res.status(404).send();
+  }
+});
+
 // 'PORT' is where the server is listening from and the callback in the 2nd argument is invoked when the server is running and ready to receive responses.
 app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
