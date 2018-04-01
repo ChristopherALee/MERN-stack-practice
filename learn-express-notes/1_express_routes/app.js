@@ -33,7 +33,7 @@ app.get("/expressions/:id", (req, res, next) => {
   }
 });
 
-// PUT request
+// PUT request (updating entity)
 app.put("/expressions/:id", (req, res, next) => {
   const expressionIndex = getIndexById(req.params.id, expressions);
 
@@ -42,6 +42,18 @@ app.put("/expressions/:id", (req, res, next) => {
     res.send(expressions[expressionIndex]);
   } else {
     res.status(404).send();
+  }
+});
+
+// POST request
+app.post("/expressions", (req, res, next) => {
+  const receivedExpression = createElement("expressions", req.query);
+
+  if (receivedExpression) {
+    expressions.push(receivedExpression);
+    res.status(201).send(receivedExpression);
+  } else {
+    res.status(400).send();
   }
 });
 
