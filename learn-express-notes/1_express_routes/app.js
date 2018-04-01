@@ -5,6 +5,14 @@ const app = express();
 
 const PORT = process.env.PORT || 4001;
 
+// This is used to make sure that once the server is started, you can reload the browser and see the Express Yourself machine.
+app.use(express.static("public"));
+
+// GET request for /expressions path
+app.get("/expressions", (req, res, next) => {
+  console.log(res);
+});
+
 // 'PORT' is where the server is listening from and the callback in the 2nd argument is invoked when the server is running and ready to receive responses.
 app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
