@@ -24,7 +24,13 @@ app.get("/expressions", (req, res, next) => {
 // GET request with a single expression path
 app.get("/expressions/:id", (req, res, next) => {
   const foundExpression = getElementById(req.params.id, expressions);
-  res.send(foundExpression);
+
+  if (foundExpression) {
+    res.send(foundExpression);
+  } else {
+    // Can set status code
+    res.status(404).send("Expression not found.");
+  }
 });
 
 // 'PORT' is where the server is listening from and the callback in the 2nd argument is invoked when the server is running and ready to receive responses.
