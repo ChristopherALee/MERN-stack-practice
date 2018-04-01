@@ -8,9 +8,17 @@ const PORT = process.env.PORT || 4001;
 // This is used to make sure that once the server is started, you can reload the browser and see the Express Yourself machine.
 app.use(express.static("public"));
 
+const expressions = [];
+
 // GET request for /expressions path
 app.get("/expressions", (req, res, next) => {
-  console.log(res);
+  // console.log(res);
+
+  // Express servers use .send() or .json() to send responses from HTTP requests.
+  // .send() will take any input and put it in the response body.
+  // .json() sends any JS object passed into it.
+  app.send(expressions);
+  app.json(expressions);
 });
 
 // 'PORT' is where the server is listening from and the callback in the 2nd argument is invoked when the server is running and ready to receive responses.
