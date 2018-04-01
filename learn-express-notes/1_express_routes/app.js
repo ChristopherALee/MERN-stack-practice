@@ -57,6 +57,18 @@ app.post("/expressions", (req, res, next) => {
   }
 });
 
+// DELETE request
+app.delete("/expressions/:id", (req, res, next) => {
+  const foundExpression = getIndexById(req.params.id, expressions);
+
+  if (foundExpression !== -1) {
+    expressions.splice(foundExpression, 1);
+    res.status(204).send();
+  } else {
+    res.status(404).send();
+  }
+});
+
 // 'PORT' is where the server is listening from and the callback in the 2nd argument is invoked when the server is running and ready to receive responses.
 app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
