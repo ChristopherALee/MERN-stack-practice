@@ -1,3 +1,3 @@
-# Node / Express Practice
+# MERN Stack Practice
 
-Various projects using Node, Express, and/or MongoDB
+Various projects and study guides using different elements of the MERN Stack - either individually or full-stack.
