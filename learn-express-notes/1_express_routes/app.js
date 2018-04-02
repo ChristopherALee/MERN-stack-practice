@@ -3,6 +3,9 @@
 const express = require("express");
 const app = express();
 
+const expressionsRouter = express.Router();
+app.use("/expressions", expressionsRouter);
+
 const PORT = process.env.PORT || 4001;
 
 // This is used to make sure that once the server is started, you can reload the browser and see the Express Yourself machine.
@@ -11,7 +14,7 @@ app.use(express.static("public"));
 const expressions = [];
 
 // GET request for /expressions path
-app.get("/expressions", (req, res, next) => {
+expressionsRouter.get("/", (req, res, next) => {
   // console.log(res);
 
   // Express servers use .send() or .json() to send responses from HTTP requests.
