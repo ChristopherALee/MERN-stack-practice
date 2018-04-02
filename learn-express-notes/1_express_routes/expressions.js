@@ -1,4 +1,13 @@
 const express = require("express");
+
+const {
+  seedElements,
+  getElementById,
+  createElement,
+  updateElement,
+  getIndexById
+} = require("./utils");
+
 const expressionsRouter = express.Router();
 
 const expressions = [];
@@ -51,7 +60,7 @@ expressionsRouter.post("/", (req, res, next) => {
 });
 
 // DELETE request
-expressionsRouter.delete(":id", (req, res, next) => {
+expressionsRouter.delete("/:id", (req, res, next) => {
   const foundExpression = getIndexById(req.params.id, expressions);
 
   if (foundExpression !== -1) {

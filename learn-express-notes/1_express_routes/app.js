@@ -2,8 +2,16 @@
 // Express is a Node module, so in order to use it, we will need to import it into our program file. To create a server, the imported 'express' function must be invoked.
 const express = require("express");
 const app = express();
-const expressionsRouter = require("./expressions.js");
 
+const {
+  getElementById,
+  getIndexById,
+  updateElement,
+  seedElements,
+  createElement
+} = require("./utils");
+
+const expressionsRouter = require("./expressions.js");
 app.use("/expressions", expressionsRouter);
 
 const PORT = process.env.PORT || 4001;
