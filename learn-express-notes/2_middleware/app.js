@@ -30,6 +30,10 @@ const jellybeanBag = {
 
 app.use((req, res, next) => {
   console.log(`${req.method} Request Received`);
+
+  // passes control to the next middleware
+  // will hand off the processing of the request and the construction of the response to the next middleware in the stack
+  next();
 });
 
 app.get("/beans/", (req, res, next) => {
