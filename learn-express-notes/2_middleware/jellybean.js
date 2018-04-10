@@ -41,6 +41,29 @@ app.use("/beans/:beanName", (req, res, next) => {
   next();
 });
 
+// multiple path routes for app.use()
+// content is for PUT and POST data
+app.use(["/beans/", "/beans/:beanName"], (req, res, next) => {
+  let bodyData = "";
+  req.on("data", data => {
+    bodyData += data;
+  });
+
+  req.on("end", () => {
+    const body = JSON.parse(bodyData);
+    const beanName = body.name;
+    if (jellybeanBag[beanName] || jellybeanBag[beanName] === 0) {
+      return res.status(400).send("Bean with that name already exists!");
+    }
+    const numberOfBeans = Number(body.number) || 0;
+    jellybeanBag[beanName] = {
+      number: numberOfBeans
+    };
+    res.send(jellybeanBag[beanName]);
+    console.log("Response Sent");
+  });
+});
+
 app.get("/beans/", (req, res, next) => {
   res.send(jellybeanBag);
   console.log("Response Sent");
