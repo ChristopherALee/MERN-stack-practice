@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const morgan = require("morgan");
+const bodyParser = require("body-parser");
 
 app.use(express.static("public"));
 
@@ -31,7 +32,10 @@ app.use((req, res, next) => {
 });
 // refactored middleware with morgan
 // makes the console.log('Response Sent') code obsolete
-app.use(morgan("tiny"));
+app.use(morgan("dev"));
+
+// requiring body-parser replaces having to have a rolled out bodyParser and can remove that middleware from all PUT and POST routes
+app.use(bodyParser.json());
 
 app.use("/beans/:beanName", (req, res, next) => {
   const beanName = req.params.beanName;
@@ -62,7 +66,7 @@ app.get("/beans/", (req, res, next) => {
   // console.log("Response Sent");
 });
 
-app.post("/beans/", bodyParser, (req, res, next) => {
+app.post("/beans/", (req, res, next) => {
   const body = req.body;
   const beanName = body.name;
   if (jellybeanBag[beanName] || jellybeanBag[beanName] === 0) {
@@ -81,14 +85,14 @@ app.get("/beans/:beanName", (req, res, next) => {
   // console.log("Response Sent");
 });
 
-app.post("/beans/:beanName/add", bodyParser, (req, res, next) => {
+app.post("/beans/:beanName/add", (req, res, next) => {
   const numberOfBeans = Number(req.body.number) || 0;
   req.bean.number += numberOfBeans;
   res.send(req.bean);
   // console.log("Response Sent");
 });
 
-app.post("/beans/:beanName/remove", bodyParser, (req, res, next) => {
+app.post("/beans/:beanName/remove", (req, res, next) => {
   const numberOfBeans = Number(req.body.number) || 0;
   if (req.bean.number < numberOfBeans) {
     return res.status(400).send("Not enough beans in the jar to remove!");
