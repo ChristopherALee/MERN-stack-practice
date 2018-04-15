@@ -27,3 +27,33 @@ fs.writeFile("./example.txt", "I will be written to example.txt", err => {
 console.log(process.argv);
 
 // Try adding some additional words after node animal_fun.js and see how it comes through. For example node animal_fun.js argv_index_2 argv_index_3 potato. We'll have access to those additional arguments in our script by bracketing into the process.argv array starting at process.argv[2].
+
+// Putting it all together so far...
+// Let's put everything we've learned so far to use:
+
+// Pass a single letter to your script
+// Read the animals.txt file
+// Grab every animal which begins with the letter
+// Write that list of animals to a new file called "{letter}_animals.txt"
+fs.readFile("./animals.txt", "utf-8", (err, data) => {
+  if (err) {
+    console.log(err);
+    return;
+  }
+
+  const animalLetter = process.argv[2];
+
+  const aWords = data
+    .split("\n")
+    .filter(word => word.split("").includes(animalLetter.toUpperCase()))
+    .join("\n");
+
+  fs.writeFile(`${animalLetter.toUpperCase()}_animals.txt`, aWords, err => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+
+    console.log(`Successfully created ${animalLetter}_animals.txt`);
+  });
+});
