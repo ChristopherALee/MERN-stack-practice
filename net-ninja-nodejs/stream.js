@@ -13,3 +13,6 @@ myReadStream.on("data", chunk => {
 
   myWriteStream.write(chunk);
 });
+
+// pipes synonymous with above function
+myReadStream.pipe(myWriteStream);
