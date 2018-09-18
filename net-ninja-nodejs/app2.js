@@ -18,7 +18,7 @@ app.get("/contact", (req, res) => {
 
   // res.sendFile(`${__dirname}/contact.html`);
 
-  res.render("contact");
+  res.render("contact", { qs: req.query });
 });
 
 app.get("/profile/:name", (req, res) => {
